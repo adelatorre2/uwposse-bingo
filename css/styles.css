@@ -1,0 +1,355 @@
+/* ============================================================
+   Posse Bingo — mobile-first styles
+   UW–Madison Posse · SOAR 2026
+   (Shares a visual language with uwposse-dyad-questions)
+   ============================================================ */
+
+:root {
+  /* Brand palette */
+  --badger-red: #C5050C;   /* primary / buttons */
+  --dark-red:   #9B0000;   /* hover / accent */
+  --gold:       #D4A017;   /* bingo / celebration accent */
+  --ink:        #121212;   /* text */
+  --gray:       #E1E5E7;   /* surfaces / borders */
+  --white:      #ffffff;
+
+  --bg:         #f6f7f8;
+  --muted:      #5c6266;
+
+  --radius:     18px;
+  --radius-sm:  12px;
+  --shadow:     0 2px 6px rgba(18,18,18,0.06), 0 10px 24px rgba(18,18,18,0.08);
+  --shadow-sm:  0 1px 3px rgba(18,18,18,0.10);
+
+  --tap:        48px; /* min tap target */
+
+  --font-head: "Red Hat Display", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Red Hat Text", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.45;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ---------------- Header ---------------- */
+.site-header {
+  background: linear-gradient(160deg, var(--badger-red), var(--dark-red));
+  color: var(--white);
+  padding: calc(env(safe-area-inset-top) + 20px) 20px 22px;
+  text-align: center;
+}
+.header-inner { max-width: 720px; margin: 0 auto; }
+.logo { max-height: 56px; width: auto; margin-bottom: 8px; }
+.wordmark {
+  font-family: var(--font-head);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  opacity: 0.92;
+  margin-bottom: 6px;
+}
+.site-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: clamp(1.7rem, 7vw, 2.5rem);
+  margin: 4px 0 6px;
+  line-height: 1.05;
+}
+.site-subtitle {
+  margin: 0;
+  font-size: 0.98rem;
+  opacity: 0.95;
+  max-width: 34ch;
+  margin-inline: auto;
+}
+
+/* ---------------- Layout ---------------- */
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 18px 16px 40px;
+}
+
+/* ---------------- Deck toggle (shared style w/ mode toggle) ---------------- */
+.mode-toggle {
+  display: flex;
+  gap: 6px;
+  background: var(--gray);
+  padding: 5px;
+  border-radius: 999px;
+  margin: 4px auto 14px;
+  max-width: 360px;
+}
+.mode-btn {
+  flex: 1;
+  min-height: var(--tap);
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.mode-btn.is-active {
+  background: var(--white);
+  color: var(--badger-red);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---------------- Status / errors ---------------- */
+.status { margin: 4px 0; }
+.status:empty { display: none; }
+.status .msg {
+  background: #fff4f4;
+  border: 1.5px solid #f3c9cb;
+  color: var(--dark-red);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 0.95rem;
+}
+.status .msg strong { font-family: var(--font-head); }
+.status .msg code {
+  background: rgba(155,0,0,0.08);
+  padding: 1px 5px;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+
+.reassure {
+  text-align: center;
+  margin: 0 0 14px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+/* ---------------- Win banner ---------------- */
+.win-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(160deg, var(--gold), #b9800c);
+  color: var(--white);
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin: 0 0 14px;
+  box-shadow: var(--shadow);
+  animation: winPop 0.35s ease;
+}
+.win-emoji { font-size: 1.3rem; }
+@keyframes winPop {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.progress-hint {
+  text-align: center;
+  margin: 0 0 14px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ---------------- Board ---------------- */
+.board-wrap {
+  display: flex;
+  justify-content: center;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  width: 100%;
+  max-width: 520px;
+}
+
+.cell {
+  position: relative;
+  min-height: 78px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(0.62rem, 2.6vw, 0.78rem);
+  line-height: 1.2;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+.cell:active { transform: scale(0.96); }
+
+.cell.is-marked {
+  background: var(--badger-red);
+  color: var(--white);
+  box-shadow: var(--shadow);
+}
+.cell.is-marked::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-sm);
+  border: 2px solid rgba(255,255,255,0.55);
+}
+
+.cell.is-center {
+  background: #fff0f0;
+  border: 2px dashed var(--badger-red);
+  font-weight: 700;
+}
+.cell.is-center.is-marked {
+  background: var(--dark-red);
+  border-style: solid;
+}
+.cell.is-center::before {
+  content: "♥";
+  display: block;
+  font-size: 0.9rem;
+  color: var(--badger-red);
+  margin-bottom: 2px;
+}
+.cell.is-center.is-marked::before {
+  color: var(--white);
+}
+
+.cell.is-bingo-line {
+  box-shadow: 0 0 0 3px var(--gold), var(--shadow);
+}
+
+/* ---------------- Board actions ---------------- */
+.board-actions {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------------- Buttons ---------------- */
+.btn {
+  min-height: 54px;
+  border-radius: 999px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.06s ease, background 0.15s ease, color 0.15s ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary {
+  background: var(--badger-red);
+  color: var(--white);
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary:hover { background: var(--dark-red); }
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  min-height: var(--tap);
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 0 14px;
+}
+.btn-ghost:hover { color: var(--dark-red); }
+
+/* ---------------- Confetti ---------------- */
+.confetti-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 50;
+}
+.confetti-piece {
+  position: absolute;
+  top: -12px;
+  width: 8px;
+  height: 14px;
+  opacity: 0.95;
+  animation: confettiFall linear forwards;
+}
+@keyframes confettiFall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(540deg); opacity: 0.9; }
+}
+
+/* ---------------- Footer ---------------- */
+.site-footer {
+  text-align: center;
+  padding: 26px 16px calc(env(safe-area-inset-bottom) + 26px);
+  color: var(--muted);
+}
+.footer-main {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 0 0 4px;
+  color: var(--ink);
+}
+.footer-disclaimer {
+  max-width: 42ch;
+  margin: 16px auto 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--gray);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.footer-disclaimer p { margin: 0 0 5px; }
+.footer-disclaimer a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.footer-disclaimer a:hover { color: var(--dark-red); }
+.footer-hint {
+  margin: 10px 0 0;
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+.footer-hint code {
+  background: var(--gray);
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+
+/* ---------------- Motion preferences ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  .cell, .btn { transition: none; }
+  .win-banner { animation: none; }
+  .confetti-piece { animation: none; display: none; }
+}
+
+/* ---------------- Larger screens ---------------- */
+@media (min-width: 620px) {
+  .cell { min-height: 92px; font-size: 0.86rem; padding: 10px; }
+}

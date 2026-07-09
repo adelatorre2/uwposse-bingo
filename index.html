@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#C5050C" />
+  <meta name="description" content="A digital, phone-friendly Posse Bingo card for UW–Madison Posse scholars to get to know each other." />
+
+  <!-- ================= PUBLIC TITLE (one-line change) ================= -->
+  <title>Posse Bingo</title>
+  <!-- ================================================================= -->
+
+  <!-- Google Fonts: Red Hat Display (headings) + Red Hat Text (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700;900&family=Red+Hat+Text:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- SheetJS (reads data/bingo_items.xlsx at runtime — no build step) -->
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <!-- If assets/logo.png exists it is used; otherwise it fails over to the text wordmark. -->
+      <img
+        class="logo"
+        src="assets/logo.png"
+        alt="UW–Madison Posse"
+        onerror="this.style.display='none'; document.getElementById('wordmark').hidden=false;"
+      />
+      <div class="wordmark" id="wordmark" hidden>UW–Madison Posse · SOAR 2026</div>
+
+      <!-- ============ PUBLIC TITLE (one-line change) ============ -->
+      <h1 class="site-title">Posse Bingo</h1>
+      <!-- ======================================================== -->
+
+      <p class="site-subtitle">Tap a square when it's true for someone in your Posse — five in a row wins.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Deck toggle -->
+    <div class="mode-toggle" role="tablist" aria-label="Deck">
+      <button class="mode-btn is-active" id="deck-warm" role="tab" aria-selected="true" data-deck="Warm Up">
+        Warm Up
+      </button>
+      <button class="mode-btn" id="deck-deep" role="tab" aria-selected="false" data-deck="Go Deeper">
+        Go Deeper
+      </button>
+    </div>
+
+    <!-- Status / error region (kept in DOM so we never show a blank page) -->
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+
+    <p class="reassure">Every phone gets its own shuffled board, so bingos are earned, not copied.</p>
+
+    <!-- Win banner -->
+    <div class="win-banner" id="win-banner" hidden>
+      <span class="win-emoji" aria-hidden="true">🎉</span>
+      <span id="win-text">BINGO!</span>
+    </div>
+
+    <!-- Progress -->
+    <p class="progress-hint" id="progress-hint"></p>
+
+    <!-- Board -->
+    <section class="board-wrap" aria-label="Bingo board">
+      <div class="board" id="board"></div>
+    </section>
+
+    <div class="board-actions">
+      <button class="btn btn-primary" id="new-board-btn">New board</button>
+      <button class="btn btn-ghost" id="clear-btn">Clear marks</button>
+    </div>
+  </main>
+
+  <!-- Confetti layer -->
+  <div class="confetti-layer" id="confetti-layer" aria-hidden="true"></div>
+
+  <footer class="site-footer">
+    <p class="footer-main">UW–Madison Posse · SOAR 2026</p>
+
+    <div class="footer-disclaimer">
+      <p>An independent project by
+        <a href="https://adelatorre2.github.io" target="_blank" rel="noopener">Alejandro De La Torre</a>.
+        The views expressed here do not represent the UW–Madison Posse Program.</p>
+      <p>Questions or feedback? <a href="mailto:adelatorre2@wisc.edu">adelatorre2@wisc.edu</a></p>
+    </div>
+
+    <p class="footer-hint">New squares can be added in <code>data/bingo_items.xlsx</code>.</p>
+  </footer>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>
