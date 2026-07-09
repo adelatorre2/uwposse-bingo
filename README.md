@@ -2,7 +2,7 @@
 
 A digital, phone-friendly version of Posse Bingo for UW–Madison Posse SOAR. No app, no printing — scholars open a link (or scan a QR code), tap squares as they're true for someone in their Posse, and race to five in a row.
 
-Live at: https://adelatorre2.github.io/uwposse-bingo/ (enable GitHub Pages on this repo to activate)
+Live at: https://adelatorre2.github.io/uwposse-bingo/
 
 ## How it works
 
